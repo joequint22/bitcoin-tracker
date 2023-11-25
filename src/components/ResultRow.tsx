@@ -24,7 +24,9 @@ export default function ResultRow({
             {btc && (
                 <>
                 <div className='flex gap-2'>
-                    <span className='text-xl text-purple-200/80'>{btc}</span>
+                    <span className='text-xl text-purple-200/80'>{
+                        new Intl.NumberFormat(undefined, {minimumFractionDigits:8}).format(parseFloat(btc))
+                    }</span>
                     <span className='text-xl text-purple-300/50'>BTC</span>
                 </div> 
                 </>

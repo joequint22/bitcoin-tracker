@@ -3,6 +3,7 @@ import "./App.css";
 import { AmountInput } from "./components/AmountInput";
 import ResultRow from "./components/ResultRow";
 import axios from 'axios'
+import { sortBy } from 'lodash'
 
 type CachedResults = {
   provider: string
@@ -50,8 +51,13 @@ function App() {
                 <ResultRow loading={true} />
               </>
             )}
-            {!isLoading && cachedResults.map((result, key) => (
-              <ResultRow key={key} providerName={result.provider}/>
+            {!isLoading && sortBy(cachedResults, 'btc').map((result, key) => (
+              <ResultRow 
+                key={key}
+                providerName={result.provider}
+                btc={result.btc}
+              
+              />
             )) }
           </div>
         </div>
