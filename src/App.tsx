@@ -24,6 +24,7 @@ function App() {
        })
   }, []);
 
+  const sortedCache = sortBy(cachedResults, 'btc').reverse()
 
   return (
     <>
@@ -51,7 +52,7 @@ function App() {
                 <ResultRow loading={true} />
               </>
             )}
-            {!isLoading && sortBy(cachedResults, 'btc').map((result, key) => (
+            {!isLoading && sortedCache.map((result: CachedResults, key) => (
               <ResultRow 
                 key={key}
                 providerName={result.provider}
