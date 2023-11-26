@@ -6,7 +6,6 @@ Welcome to the Bitcoin Tracker App! This application is built using TypeScript a
 
 Features
 Real-time Price Updates: Stay up-to-date with the latest Bitcoin prices.
-Historical Data: View historical price charts to analyze trends.
 Currency Converter: Convert Bitcoin prices to various fiat currencies.
 User-Friendly Interface: Intuitive design for easy navigation and a seamless user experience.
 Getting Started
