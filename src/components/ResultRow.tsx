@@ -1,4 +1,8 @@
 import React from 'react'
+import paybisLogo from '../assets/paybis-logo.png'
+import moonpayLogo from '../assets/moonpay-logo.png'
+import transakLogo from '../assets/transak-logo.png'
+import gauradarianLogo from '../assets/gaurdarian-logo.png'
 
 type ResultRowProps = {
     loading?: boolean
@@ -6,21 +10,38 @@ type ResultRowProps = {
     btc?: string
 }
 
+type TLogo = {
+    source: string
+    invert?:boolean
+}
+const logos: {[keys:string]: TLogo} = {
+    paybis: {source: paybisLogo, invert:true},
+    moonpay: {source: moonpayLogo, invert:true},
+    transak: {source: transakLogo},
+    gaurdarian: {source: gauradarianLogo}
+}
 
 export default function ResultRow({ 
     loading, providerName, btc
  }: ResultRowProps) {
+
   return (
     <> 
     <div className='relative overflow-hidden border h-[64px] border-white/10 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 my-2'>
         <div className='flex gap-4'>
             {providerName && (
-                <>
-                <div>logo</div> 
-                </>
+            
+            <div className="grow items-center flex">
+            <img
+              src={logos[providerName].source}
+              className={
+                "h-8 "+(logos[providerName]?.invert ? 'invert' : '')
+              }
+              alt=""/>
+          </div> 
+                
             )}
-            {/* //grow will make this div take up all of the space between the next div */}
-            <div className='grow'>{providerName || ''}</div>
+
             {btc && (
                 <>
                 <div className='flex gap-2'>
