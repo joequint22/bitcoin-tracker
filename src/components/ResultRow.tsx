@@ -18,8 +18,8 @@ type Logo = {
 const logos: { [keys: string]: Logo } = {
   paybis: { source: paybisLogo, invert: true },
   guardarian: { source:  gauradarianLogo},
-  moonpay: { source: moonpayLogo , className: true },
-  transak: { source:  transakLogo},
+  moonpay: { source: moonpayLogo},
+  transak: { source:  transakLogo, className: true },
 };
 export default function ResultRow({
   loading,
