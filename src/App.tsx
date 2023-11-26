@@ -4,15 +4,23 @@ import { AmountInput } from "./components/AmountInput";
 import ResultRow from "./components/ResultRow";
 import axios from 'axios'
 import { sortBy } from 'lodash'
+import useDebouncedEffect from 'use-debounced-effect'
 
 type CachedResults = {
   provider: string
   btc: string
 }
 
+type OfferResults = {[key:string]:string}
+
+
+const defaultAmount = '100'
+
 function App() {
-  const [amount, setAmount] = useState("");
+  const [prevAmount, setPrevAmount] = useState('100')
+  const [amount, setAmount] = useState("100");
   const [cachedResults, setCachedResults] = useState<CachedResults[]>([])
+  const [offerResults, setOffersResults] = useState<OfferResults>({})
   const [isLoading, setIsLoading] = useState(true)
  
   useEffect(() => {
@@ -24,7 +32,27 @@ function App() {
        })
   }, []);
 
+  useDebouncedEffect(() => {
+    if (amount === defaultAmount){
+      return;
+    }
+    if(amount !== prevAmount )
+    setIsLoading(true)
+    axios.get(`https://sz6tcer3ng.us.aircode.run/offers?amount=${amount}`)
+    .then(res => {
+      setIsLoading(false)
+      setOffersResults(res.data)
+      setPrevAmount(amount)
+    })
+  }, 300, [amount])
+
   const sortedCache = sortBy(cachedResults, 'btc').reverse()
+  const sortedResults:CachedResults = sortBy(Object.keys(offerResults).map(provider => ({
+    provider,
+    btc:offerResults[provider]
+  }))).reverse()
+
+  const showCached = amount === defaultAmount
 
   return (
     <>
@@ -52,7 +80,7 @@ function App() {
                 <ResultRow loading={true} />
               </>
             )}
-            {!isLoading && sortedCache.map((result: CachedResults, key) => (
+            {!isLoading && showCached && sortedCache.map((result: CachedResults, key) => (
               <ResultRow 
                 key={key}
                 providerName={result.provider}
@@ -60,6 +88,18 @@ function App() {
               
               />
             )) }
+            {
+              !isLoading && !showCached && (
+                sortedResults.map((result, key) => (
+                  <ResultRow 
+                  key={key}
+                  providerName={result.provider}
+                  btc={result.btc}
+                
+                />
+                ))
+              )
+            }
           </div>
         </div>
       </div>
