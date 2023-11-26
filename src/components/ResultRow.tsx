@@ -1,4 +1,3 @@
-import React from "react";
 import paybisLogo from "../assets/paybis-logo.png";
 import moonpayLogo from "../assets/moonpay-logo.png";
 import transakLogo from "../assets/transak-logo.png";
