@@ -18,7 +18,7 @@ function App() {
   useEffect(() => {
     axios.get('https://sz6tcer3ng.us.aircode.run/cachedValues')
     .then( res => {
-         setCachedResults(res.data.results)
+         setCachedResults(res.data)
          setIsLoading(false)
 
        })

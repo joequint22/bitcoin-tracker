@@ -5,43 +5,51 @@ import transakLogo from '../assets/transak-logo.png'
 import gauradarianLogo from '../assets/gaurdarian-logo.png'
 
 type ResultRowProps = {
-    loading?: boolean
-    providerName?: string
-    btc?: string
-}
+  loading?: boolean;
+  providerName?: string;
+  btc?: string;
+};
 
-type TLogo = {
-    source: string
-    invert?:boolean
-}
-const logos: {[keys:string]: TLogo} = {
-    paybis: {source: paybisLogo, invert:true},
-    moonpay: {source: moonpayLogo, invert:true},
-    transak: {source: transakLogo},
-    gaurdarian: {source: gauradarianLogo}
-}
-
+type Logo = {
+  source:string,
+  invert?:boolean
+  className?: boolean
+};
+const logos:{[keys:string]:Logo} = {
+  paybis: {source:paybisLogo,invert:true},
+  guardarian: {source: moonpayLogo},
+  moonpay:{source:transakLogo, className:true},
+  transak:{source:gauradarianLogo},
+};
 export default function ResultRow({ 
     loading, providerName, btc
  }: ResultRowProps) {
+
+//
+function classNames(){
+    if(!providerName) return
+    if(logos[providerName].invert){
+        return 'h-8 invert'
+    } else if (logos[providerName].className){
+        return 'h-20 absolute inset-x-0 ml-2'
+    } else {
+        return 'h-6 ml-1 w-34'
+    }
+}
+
 
   return (
     <> 
     <div className='relative overflow-hidden border h-[64px] border-white/10 rounded-lg bg-gradient-to-r from-purple-500/10 to-blue-500/10 p-4 my-2'>
         <div className='flex gap-4'>
-            {providerName && (
-            
-            <div className="grow items-center flex">
+        {providerName && (
+          <div className="grow items-center flex">
             <img
               src={logos[providerName].source}
-              className={
-                "h-8 "+(logos[providerName]?.invert ? 'invert' : '')
-              }
+              className={classNames()}
               alt=""/>
-          </div> 
-                
-            )}
-
+          </div>
+        )}
             {btc && (
                 <>
                 <div className='flex gap-2'>
