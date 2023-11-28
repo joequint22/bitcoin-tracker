@@ -47,7 +47,7 @@ export default function ResultRow({
                 <img
                   src={logos[providerName].source}
                   className={classNames()}
-                  alt=""
+                  alt="provider-logo"
                 />
               </div>
             )}

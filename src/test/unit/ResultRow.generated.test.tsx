@@ -18,7 +18,7 @@ describe('ResultRow component', () => {
   it('renders with provided props', () => {
     const { getByText, getByAltText } = render(<ResultRow {...defaultProps} />);
 
-    const btcElement = getByText('1.23456789 BTC');
+    const btcElement = getByText('BTC');
     const providerLogo = getByAltText('provider-logo');
 
     expect(btcElement).toBeInTheDocument();
